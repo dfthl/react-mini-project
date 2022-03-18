@@ -15,16 +15,12 @@ export default function Login() {
     const handleLogin = async () => {
         const data = formik.values;
 
-        await axios('http://localhost:8080/login', data)
+        await axios.post('http://localhost:8080/login', data)
             .then(res =>{
-                // fake auth
                 localStorage.setItem('access_token', res.data.accessToken)
                 window.location = "/home"
             })
             .catch(err =>{
-                // fake auth
-                localStorage.setItem('access_token', 'res.data.accessToken')
-                window.location = "/home"
                 console.error(err)
             })
     }

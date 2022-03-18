@@ -26,7 +26,11 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* public routes */}
-        <Route path="/" element={<LoginPage/>} />
+        <Route path="/" >
+          <Route path=":id" element={<CatalogById/>} />
+          <Route index element={<Catalog/>}/>
+        </Route>
+        <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<Register/>} />
         {/* <Route path="/register" element={<Register/>} /> */}
         <Route path="/catalog" >

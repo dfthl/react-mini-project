@@ -39,6 +39,15 @@
       "password": "$2a$10$X.es.XqP9OsID0O5UZq3gOQfx7VR3L2iA.hNMNIWi16fHdYROkT02",
       "username": "testdev@mail.com",
       "id": 1
+    },
+    {
+      "email": "asd@mail.com",
+      "password": "$2a$10$rNQT7xjvuMYERlJpCIhSWOFE70.02iTyAbzJsEtvFENtONw8po.UC",
+      "id": 59921068,
+      "join_date": "Fri Mar 18 2022 00:52:31 GMT+0700 (Western Indonesia Time)",
+      "username": "asd@mail.com",
+      "address": "jakarta",
+      "phone_number": "62874859367"
     }
   ]
 }

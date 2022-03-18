@@ -4,32 +4,10 @@ import axios from "axios";
 
 import './style.scss'
 
-export default function ReviewForm({actionForm, data, setData, setModalVisible, updatedId}) {
+export default function ReviewForm({actionForm, data, updatedId}) {
     const thousandSeparator = num => String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
-    
-    const initialFormValue = {
-        name: "",
-        price: 0,
-        stock: 0,
-        category: ""
 
-    };
     const [review, setReview] = useState({});
-    const updateData = async () => {
-        await axios.put(`http://localhost:8080/products/${updatedId}`, review)
-            .then(() => {
-                const updateDataIndex = data.findIndex((p) => p.id === updatedId);
-                data[updateDataIndex] = review;
-            })
-            .catch((err) => console.error(err));
-        setModalVisible(false)
-    };
-    
-    const handleSubmit = (e) => {
-        e.preventDefault() //ignore cara kerja default html tag
-        return updateData();
-
-    };
 
     useEffect(() => {
         if (actionForm === "review") {

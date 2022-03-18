@@ -33,6 +33,7 @@ export default function Catalog() {
             <div className="col">
                 <div className="col catalogue">
                     <div className="col">
+                        <a href="/login"><Button className="login-button">Login</Button></a>
                         <div className="row">
                             {data.map((d, idx) => (
                                 <div className="col" key={idx}>
