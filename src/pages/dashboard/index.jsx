@@ -1,38 +1,38 @@
 import React, {useState, useEffect} from "react";
-import { Button, Modal, ModalBody, ModalHeader, Table } from "reactstrap";
-import FormDashboard from "./form";
-import ReviewForm from "./review";
 import axios from "axios";
 
+import FormDashboard from "./form";
+import Navbar from "../../component/navbar";
+import PreviewForm from "./preview";
+
 import './style.scss'
+import { Button, Modal, ModalBody, ModalHeader, Table } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import LeftSidebar from "../../component/leftSidebar";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Dashboard() {
-    const thousandSeparator = num => String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
-    
+    const page = 'Dashboard';
+    const thousandSeparator = num => String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,');
     const [header, setHeader] = useState([]);
     const [data, setData] = useState([]);
     const [action, setAction] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const [reviewVisible, setReviewVisible] = useState(false);
+    const [previewVisible, setPreviewVisible] = useState(false);
     const [updatedId, setUpdatedId] = useState(null);
-
     const handleCreate = () => {
         setAction("create");
         setModalVisible(true);
-    }
+    };
     const handleEdit = (id) => {
         setUpdatedId(id);
         setAction("edit");
         setModalVisible("true")
-    }
+    };
     const handleReview = (id) => {
         setUpdatedId(id);
-        setAction("review");
-        setReviewVisible("true")
-    }
+        setAction("preview");
+        setPreviewVisible("true")
+    };
     const handleDelete = async (id) => {
         await axios.delete(`http://localhost:8080/products/${id}`)
             .then(() =>{
@@ -40,46 +40,27 @@ export default function Dashboard() {
                 setData(updatedData);
             })
             .catch((err) => console.error(err));
-    }
+    };
     const getData = async () => {
         await axios.get('http://localhost:8080/products')
             .then((res) => {
                 setData(res.data)
             })
             .catch((err) => console.error(err));
-    }
-    const handleLogout = () => {
-        localStorage.removeItem('access_token');
-        window.location = '/'
-    }
-    const handleStore = () => {
-        window.location = '/store'
-    }
+    };
 
     useEffect(() => {
         const listHeader = ['No', 'Photo', 'Name', 'Price', 'Stock', 'Category', 'Action'];
         setHeader(listHeader);
         getData();
-    }, [])
-
-    
-    const [leftSidebar, setLeftSidebar] = useState(false);
-    const showLeftSidebar = () => setLeftSidebar(!leftSidebar);
-
+    }, []);
     return(
-        <div className="body">
-            <div className="col navbar">
-                <FontAwesomeIcon icon={faBars} className="bars" onClick={showLeftSidebar}/>
-                <Button className="add-data-button" color="primary" onClick={() => handleCreate()}>Add New Data</Button>
-            
-            </div>
+        <div className="dashboard-body">
+            <Navbar
+                page={page}
+            />
+            <Button className="add-data-button" onClick={() => handleCreate()}><FontAwesomeIcon icon={faPlus}/></Button>
             <div className="col">
-                <LeftSidebar
-                    leftSidebar={leftSidebar}
-                    setLeftSidebar={setLeftSidebar}
-                    showLeftSidebar={showLeftSidebar}
-                />
-
                 <div className="col product-list">
                     <Table>
                         <thead>
@@ -98,12 +79,12 @@ export default function Dashboard() {
                                     <td className="col-photo"><img className="dashboard-photo" src={`${d.photo_url}`} alt="Unknown"/></td>
                                     <td>{d.name}</td>
                                     <td>Rp {thousandSeparator(`${d.price}`)}</td>
-                                    <td>{d.stock}</td>
+                                    <td>{thousandSeparator(`${d.stock}`)}</td>
                                     <td>{d.category}</td>
                                     <td>
-                                        <Button className="action-button" onClick={() => handleReview(d.id)}>Review</Button>
-                                        <Button className="action-button" onClick={() => handleEdit(d.id)}>Edit</Button>
-                                        <Button className="action-button" color="danger" onClick={() => window.confirm("Are you sure?")? handleDelete(d.id) : window.location="/dashboard"}>Delete</Button>
+                                        <Button className="action-button" size="sm" onClick={() => handleReview(d.id)}>Preview</Button>
+                                        <Button className="action-button" size="sm" onClick={() => handleEdit(d.id)}>Edit</Button>
+                                        <Button className="action-button" size="sm" color="danger" onClick={() => window.confirm("Are you sure?")? handleDelete(d.id) : null}>Delete</Button>
                                     </td>
                                 </tr>
                             ))}
@@ -123,12 +104,12 @@ export default function Dashboard() {
                             />
                         </ModalBody>
                     </Modal>
-                    <Modal className="review-modal" isOpen={reviewVisible} toggle={() => setReviewVisible(!reviewVisible)}>
-                        <ModalHeader className="review-header">
-                            Product Review
+                    <Modal className="preview-modal" isOpen={previewVisible} toggle={() => setPreviewVisible(!previewVisible)}>
+                        <ModalHeader className="preview-header">
+                            Product Preview
                         </ModalHeader>
                         <ModalBody>
-                            <ReviewForm
+                            <PreviewForm
                                     actionForm={action}
                                     data={data}
                                     setData={setData}

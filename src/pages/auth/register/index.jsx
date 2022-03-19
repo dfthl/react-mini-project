@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
+import axios from 'axios';
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { Button, FormFeedback, Input } from "reactstrap";
-import axios from 'axios';
 
 import './style.scss'
+import { Button, FormFeedback, Input } from "reactstrap";
 
 const validationSchema = yup.object().shape({
     email: yup.string().email().required("Email salah"),
@@ -14,9 +14,8 @@ const validationSchema = yup.object().shape({
     password: yup.string().min(8).required(),
     retypePassword: yup.string()
       .oneOf([yup.ref('password'), null], 'Passwords must match'),
-})
+});
 export default function Register() {
-
     const handleRegister = async (e) => {
         const {id, join_date, email, username, address, phone_number, password} = formik.values;
         await axios.post('http://localhost:8080/register', {
@@ -33,8 +32,6 @@ export default function Register() {
             })
             .catch((err) => console.error(err));
     };
-
-    
     const formik = useFormik({
         initialValues: {
             'id': Math.floor(Math.random() * Math.random() * 1000000000),
@@ -48,17 +45,15 @@ export default function Register() {
         },
         validationSchema: validationSchema,
         onSubmit: () => handleRegister()
-    })
-
+    });
     const [formRegister, setFormRegister] = useState(formik.initialValues);
-    
+
     useEffect(() => {
         const formInput = Object.assign({}, formik.initialValues);
         delete formInput.id;
         delete formInput.join_date;
         setFormRegister(formInput);
-    }, [])
-
+    }, []);
     return(
         <div className="register-page">
             <form className="form-container" onSubmit={formik.handleSubmit}>

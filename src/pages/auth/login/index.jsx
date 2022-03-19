@@ -1,20 +1,18 @@
 import React from "react"
+import axios from 'axios';
 import { useFormik } from "formik"
 import * as yup from "yup"
-import { Button, FormFeedback, Input } from "reactstrap";
-import axios from 'axios';
 
 import './style.scss'
+import { Button, FormFeedback, Input } from "reactstrap";
 
 const validationSchema = yup.object().shape({
     email: yup.string().email().required("Email isn't valid."),
     password: yup.string().min(8).required()
 })
 export default function Login() {
-
     const handleLogin = async () => {
         const data = formik.values;
-
         await axios.post('http://localhost:8080/login', data)
             .then(res =>{
                 localStorage.setItem('access_token', res.data.accessToken)
@@ -23,7 +21,7 @@ export default function Login() {
             .catch(err =>{
                 console.error(err)
             })
-    }
+    };
     const formik = useFormik({
         initialValues: {
             'email': '',
@@ -31,7 +29,7 @@ export default function Login() {
         },
         validationSchema: validationSchema,
         onSubmit: () => handleLogin()
-    })
+    });
 
     return(
         <div className="login-page">

@@ -1,9 +1,10 @@
 import React from "react";
+import { Routes, Route, Navigate, BrowserRouter, Outlet } from "react-router-dom";
+
 import Dashboard from "./pages/dashboard";
 import LoginPage from "./pages/auth/login";
 import CatalogById from "./pages/catalog/id";
 import Catalog from "./pages/catalog/index";
-import { Routes, Route, Navigate, BrowserRouter, Outlet } from "react-router-dom";
 import Register from "./pages/auth/register";
 import UnderConstruction from "./pages/notfound/underConstruction";
 import PageNotFound from "./pages/notfound/404";

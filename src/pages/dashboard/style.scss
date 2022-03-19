@@ -5,21 +5,22 @@ $forth-color: #3d5a80;
 $box-shadow:  0 .5rem 1.5rem rgba(0,0,0,.1);
 $sidebar-shadow:  0 .5rem 1.5rem rgba(0,0,0,.1);
 
-.body{
-    background-color: $main-color;
-    .navbar{
-        background-color: $second-color;
+.dashboard-body{
+    .add-data-button{
+        background-color: $forth-color;
+        border-radius: 50%;
+        color: $main-color;
+        margin-left: 5px;
+        outline: none;
         box-shadow: $box-shadow;
-        height: 80px;
-        .bars{
-            margin-left: 5%;
+        border: none;
+        position: fixed;
+        right: 2%;
+        bottom: 3%;
+        &:hover{
+            transform: translateY(-5px);
+            background-color: $forth-color;
         }
-        .add-data-button{
-            margin-right: 5%;
-        }
-    }
-    .header{
-        margin: 5px 5px 0;
     }
     .product-list{
         margin-left: 30px;
@@ -45,17 +46,25 @@ $sidebar-shadow:  0 .5rem 1.5rem rgba(0,0,0,.1);
 }
 .upload-button{
     max-width: fit-content;
-    margin-left: 75%;
-    background-color: $main-color;
-    border: solid $second-color;
+    margin-left: 80%;
+    background-color: $second-color;
+    border: solid $main-color;
+    border-radius: 10%;
     outline: $main-color;
     a{
+        font-size: small;
+        &:hover{
+            color: black;
+        }
         color: inherit;
     }
 }
-.review-form{
+.cancel-button{
+    margin-left: 5px;
+}
+.preview-form{
     text-align: center;
-    .photo-review{
+    .photo-preview{
         width: 40%;
         height: 40%;
     }

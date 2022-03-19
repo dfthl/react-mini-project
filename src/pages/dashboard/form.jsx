@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 
 import './style.scss'
+import { Button, FormGroup, Input, Label } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function FormDashboard({actionForm, data, setData, setModalVisible, updatedId}) {
     const initialFormValue = {
@@ -13,7 +13,6 @@ export default function FormDashboard({actionForm, data, setData, setModalVisibl
         stock: 0,
         category: "",
         photo_url: ""
-
     };
     const [form, setForm] = useState(initialFormValue);
     const createData = async () => {
@@ -33,9 +32,8 @@ export default function FormDashboard({actionForm, data, setData, setModalVisibl
             .catch((err) => console.error(err));
         setModalVisible(false)
     };
-    
     const handleSubmit = (e) => {
-        e.preventDefault() //ignore cara kerja default html tag
+        e.preventDefault()
         if (actionForm === "create") return createData();
         return updateData();
 
@@ -43,13 +41,11 @@ export default function FormDashboard({actionForm, data, setData, setModalVisibl
 
     useEffect(() => {
         if (actionForm === "edit") {
-            // create new object editedData from referal data
             const editedData = Object.assign({}, data.find(v => v.id === updatedId));
             delete editedData.id;
             setForm(editedData);
         }
-    }, [data, updatedId, actionForm])
-
+    }, [data, updatedId, actionForm]);
     return(
         <div>
             <form onSubmit={handleSubmit}>
@@ -73,7 +69,7 @@ export default function FormDashboard({actionForm, data, setData, setModalVisibl
                 </div>
                 <br/>
                 <Button color="primary" type="submit">Submit</Button>
-                <Button onClick={() => setModalVisible(false)}>Cancel</Button>
+                <Button className="cancel-button" onClick={() => setModalVisible(false)}>Cancel</Button>
             </form>
         </div>
     )

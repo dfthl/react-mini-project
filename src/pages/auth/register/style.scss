@@ -13,6 +13,7 @@ $sidebar-shadow:  0 .5rem 1.5rem rgba(0,0,0,.1);
     overflow: hidden;
 
     .form-container{
+        box-shadow: $box-shadow;
         margin: auto auto;
         padding: 50px 20px;
         max-width: 350px;

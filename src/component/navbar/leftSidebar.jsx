@@ -1,17 +1,17 @@
-import { faChartLine, faColumns, faHome, faStore, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "reactstrap";
 import React from "react";
 
-import './style.scss'
 import profilePict from '../../assets/profile-picture.png'
+
+import './style.scss'
+import { Button } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartLine, faColumns, faHome, faStore, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function LeftSidebar({leftSidebar,setLeftSidebar,showLeftSidebar}) {
     const handleLogout = () => {
         localStorage.removeItem('access_token');
         window.location = '/'
-    }
-
+    };
     return(
         <div className={leftSidebar? 'left-sidebar active' : 'left-sidebar'}toggle={() => setLeftSidebar(!leftSidebar)}>
             <ul className="sidebar-menu-items">

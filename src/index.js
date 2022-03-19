@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+document.body.style = 'background: #E8E8E4;';
+
 
 ReactDOM.render(
   <React.StrictMode>
